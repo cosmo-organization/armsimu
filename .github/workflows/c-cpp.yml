@@ -13,9 +13,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: build_and_run
-      run: build_and_run.bat
     - name: cmake_gen
       run: cmake .
     - name: cmake_build
       run: cmake --build .
+    - name: run_app
+      run: "Debug/armasimu"
