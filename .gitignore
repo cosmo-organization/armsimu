@@ -1,0 +1,16 @@
+*.vcxproj
+CMakeCache.txt
+CMakeFiles/
+Debug/
+Release/
+x86/
+x64/
+armasimu.dir/
+*.filters
+cmake_install.cmake
+*.sln
+*.obj
+*.out
+*.bin
+*.so
+*.dll
