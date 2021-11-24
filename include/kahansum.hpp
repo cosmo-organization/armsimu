@@ -120,7 +120,7 @@ namespace arm_simu{
 				param.sum=param.t;
 				return param.sum;
 			}
-			
+
 			
 			//Reseting to recompute stepsummation
 			template<typename T>

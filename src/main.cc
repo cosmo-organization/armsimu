@@ -5,9 +5,9 @@
 #include <cmath>
 #include <utility>
 
-void model(arma::vec y,double t,arma::vec& dydt){
-	dydt[0]=3*y[1]*t;
-	dydt[1]=2*t*y[0];
+void model(arma::rowvec y,double t,arma::rowvec& dydt){
+	dydt[0]=-0.3*y[0];
+	dydt[1]=-0.3*y[1];
 }
 
 void model2(double y,double t,double& dydt){
@@ -25,13 +25,21 @@ arma::vec arange(double start,double end,double step){
 }
 
 int main(const int argc,const char** argv){
+	
 	{
-		arma::mat mn(2000,2000);
-		mn.fill(1);
-		arma::vec result(mn.n_cols);
-		std::cout<<"Here is ok"<<std::endl;
-		arm_simu::KahanSum::Summation(mn,&result);
+		arma::vec t_frame=arange(0,1,0.01);
+		arma::rowvec y0(2);
+		double dy0=10;
+		y0[0]=10;
+		y0[1]=10;
+		auto result=arm_simu::EulerIntegrate(model,y0,t_frame);
+		result.first.print();
+		auto result1=arm_simu::EulerIntegrate(model2,dy0,t_frame);
+		result1.first.print("Later");
+		
+		t_frame.print("TimeFrame");
 	}
+	
 	
 	return 0;
 }
