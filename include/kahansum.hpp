@@ -121,10 +121,6 @@ namespace arm_simu{
 				return param.sum;
 			}
 			
-			template<typename T>
-			static arma::vec StepSummation(arma::mat input,std::vector<KahanSum<T>>& params){
-				
-			}
 			
 			//Reseting to recompute stepsummation
 			template<typename T>
