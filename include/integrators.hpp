@@ -60,12 +60,10 @@ namespace arm_simu{
 		param.t.fill(0);
 		param.c.fill(0);
 		_result.row(0)=x0;
-		std::cout<<"Here"<<std::endl;
 		arma::rowvec slope(x0.size());
 		for (int i=1;i<t_frame.size();i++){
 			
 			equation(_result.row(i-1),t_frame[i-1],slope);
-			slope.print("Slope");
 			
 			_result.row(i)=_result.row(i-1)+dt*slope;
 			param.sum=_result.row(i-1);
