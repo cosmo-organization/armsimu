@@ -1,5 +1,5 @@
 # A library for dynamical system simulation
-##Only x64 architecture support
+## Only x64 architecture support
 #### cmake .
 #### open solution in visual studio
 #### or run 
