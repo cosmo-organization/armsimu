@@ -13,4 +13,3 @@ cmake_install.cmake
 *.out
 *.bin
 *.so
-*.dll
