@@ -18,6 +18,8 @@ jobs:
     - name: cmake_build
       run: cmake --build .
     - name: moving_dependencies
+      run: cmd
       run: move /Y dep\runtime\* Debug
+      run: exit
     - name: run_app
       run: "Debug/armasimu"
