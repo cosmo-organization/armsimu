@@ -16,7 +16,7 @@ void model2(double y,double t,double& dydt){
 }
 
 void velocity_model(double y,double t,double& dydt){
-	dydt=2*t*t;
+	dydt=2*t;
 }
 
 arma::vec arange(double start,double end,double step){
