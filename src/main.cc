@@ -36,7 +36,7 @@ void input(double t,arma::vec* result){
 int main(const int argc,const char** argv){
 	
 	{
-		arma::vec t_frame=arange(0,1000+0.01,0.01);
+		arma::vec t_frame=arange(0,1+0.01,0.01);
 		arma::rowvec y0(2);
 		double dy0=0;
 		y0[0]=5;
