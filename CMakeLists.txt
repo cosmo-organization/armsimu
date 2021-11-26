@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(armasimu VERSION 1.0)
 
-add_subdirectory("dep/sciplot")
 
 add_executable(armasimu "src/main.cc" "src/system.cc")
 include_directories("dep" "include")
