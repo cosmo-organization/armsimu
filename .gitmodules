@@ -1,0 +1,3 @@
+[submodule "dep/sciplot"]
+	path = dep/sciplot
+	url = https://github.com/sciplot/sciplot.git
