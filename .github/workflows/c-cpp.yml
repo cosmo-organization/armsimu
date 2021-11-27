@@ -14,9 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: resolving dependencies 1
-      run: git submodule update
-    - name: resolving dependencies 2
       run: git submodule init
+    - name: resolving dependencies 2
+      run: git submodule update
     - name: cmake_gen
       run: cmake .
     - name: cmake_build
