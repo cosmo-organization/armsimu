@@ -5,6 +5,7 @@
 #include <cmath>
 #include <utility>
 #include <system.hpp>
+#include <window_manager.hpp>
 
 void model(arma::rowvec y,double t,arma::rowvec& dydt){
 	dydt[0]=2*t*t;
@@ -33,6 +34,11 @@ arma::vec arange(double start,double end,double step){
 void input(double t,arma::vec* result){
 	(*result)[0]=0.001;
 }
+
+void WinCallBacks(arm_simu::WinPointer*){
+	
+}
+
 int main(const int argc,const char** argv){
 	
 	{
@@ -66,7 +72,14 @@ int main(const int argc,const char** argv){
 		//t_frame.print("TimeFrame");
 	}
 	
-	
+	{
+		arm_simu::WindowManager::Initialize();
+		
+		arm_simu::WinPointer* mainwin=arm_simu::WindowManager::CreateWindow("Arm Simulator",0,0,800,600);
+		arm_simu::WindowManager::StartWindow(mainwin,WinCallBacks);
+		arm_simu::WindowManager::DestroyWindow(mainwin);
+		arm_simu::WindowManager::Finalize();
+	}
 	
 	return 0;
 }
