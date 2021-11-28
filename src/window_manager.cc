@@ -76,8 +76,12 @@ namespace arm_simu{
 			WinPointerImpl* winptr=reinterpret_cast<WinPointerImpl*>(_WinPointer);
 			GLFWwindow* window=winptr->window;
 			
+			
+			
 			while (!glfwWindowShouldClose(window)){
-				
+				int width,height;
+				glfwGetWindowSize(window,&width,&height);
+				bool some;
 				glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 				// Clean the back buffer and assign the new color to it
 				glClear(GL_COLOR_BUFFER_BIT);
@@ -86,17 +90,14 @@ namespace arm_simu{
 				ImGui_ImplOpenGL3_NewFrame();
 				ImGui_ImplGlfw_NewFrame();
 				ImGui::NewFrame();
-				
-				
-				ImGui::Begin("My name is window, ImGUI window");
-				// Text that appears in the window
-				ImGui::Text("Hello there adventurer!");
-				// Checkbox that appears in the window
-				ImGui::Checkbox("Draw Triangle", &drawTriangle);
-				// Slider that appears in the window
-				ImGui::SliderFloat("Size", &size, 0.5f, 2.0f);
-				// Fancy color editor that appears in the window
-				
+				ImVec2 pos(0.0f,0.0f);
+				ImVec2 size((float)width,(float)height);
+				ImGui::SetNextWindowSize(size);
+				ImGui::SetNextWindowPos(pos);
+				ImGui::SetNextWindowBgAlpha(0);
+				ImGui::Begin("ArmSimulator",NULL,ImGuiWindowFlags_NoDecoration);
+				ImGui::Text("Amino Acid is out of phase");
+				ImGui::Checkbox("Agree T&C apply",&some);
 				callback(_WinPointer);
 				
 				
