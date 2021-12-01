@@ -12,11 +12,12 @@ include_directories(
 
 add_executable(armasimu 
 	"src/main.cc" "src/system.cc" "src/window_manager.cc"
+	"src/plotter.cc"
 	"dep/imgui/imgui.cpp" "dep/imgui/imgui_demo.cpp"
 	"dep/imgui/imgui_draw.cpp" "dep/imgui/imgui_tables.cpp"
 	"dep/imgui/imgui_widgets.cpp" "dep/imgui/backends/imgui_impl_glfw.cpp"
 	"dep/imgui/backends/imgui_impl_opengl3.cpp" "dep/implot/implot.cpp"
-	"dep/implot/implot_items.cpp"
+	"dep/implot/implot_items.cpp" "dep/implot/implot_demo.cpp"
 	)
 
 target_link_libraries(armasimu PUBLIC glfw opengl32 dep/linker/armadillo dep/linker/blas_win64_MT dep/linker/lapack_win64_MT)

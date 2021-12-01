@@ -7,6 +7,7 @@
 #include <system.hpp>
 #include <window_manager.hpp>
 #include <implot/implot.h>
+#include <plotter.hpp>
 
 void model(arma::rowvec y,double t,arma::rowvec& dydt){
 	dydt[0]=2*t*t;
@@ -33,14 +34,14 @@ arma::vec arange(double start,double end,double step){
 
 
 void input(double t,arma::vec* result){
-	(*result)[0]=0.001;
+	(*result)[0]=10;
 }
 
 double* ptr;
 double* time_ptr;
 int size=0;
 
-void WinCallBacks(arm_simu::WinPointer*){
+void WinCallBacks(arm_simu::WinPointer*,arm_simu::Extra extra){
 	
     if (ImPlot::BeginPlot("Scatter Plot")) {
         ImPlot::PlotScatter("Data 1", time_ptr, ptr, size);
@@ -55,15 +56,14 @@ void WinCallBacks(arm_simu::WinPointer*){
 
 int main(const int argc,const char** argv){
 	
-	{
-		arma::vec t_frame=arange(0,10+0.01,0.01);
+		arma::vec t_frame=arange(0,1000+0.01,0.01);
 		arma::rowvec y0(2);
 		double dy0=0;
-		y0[0]=5;
+		y0[0]=0;
 		y0[1]=0;
 		constexpr double M=10;
-		constexpr double K=5;
-		constexpr double Damp=5;
+		constexpr double K=1;
+		constexpr double Damp=0.01;
 		double KbyM=K/M;
 		double oneByM=1/M;
 		double BbyM=Damp/M;
@@ -82,20 +82,12 @@ int main(const int argc,const char** argv){
 		arma::mat D(0,0);
 		arm_simu::System _system(A,B,C,D,y0,(arm_simu::input_handle)input,1);
 		auto result=_system.compute_state(t_frame);
-		result.print();
 		
-		//t_frame.print("TimeFrame");
-	}
-	
 	{
 		arm_simu::WindowManager::Initialize();
 		
-		arm_simu::WinPointer* mainwin=arm_simu::WindowManager::CreateWindow("Arm Simulator",0,0,800,600);
-		ImPlotContext* context=ImPlot::CreateContext();
-		ImPlot::SetCurrentContext(context);
-		arm_simu::WindowManager::StartWindow(mainwin,WinCallBacks);
-		arm_simu::WindowManager::DestroyWindow(mainwin);
-		ImPlot::DestroyContext(context);
+		arm_simu::Plot::ScatterPlot(t_frame,result.col(0),"Scatter Plot Example");
+		
 		arm_simu::WindowManager::Finalize();
 		
 	}

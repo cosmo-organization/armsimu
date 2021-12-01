@@ -69,10 +69,8 @@ namespace arm_simu{
 		#endif
 	}
 	
-	void WindowManager::StartWindow(WinPointer* _WinPointer,WinCallback callback){
+	void WindowManager::StartWindow(WinPointer* _WinPointer,WinCallback callback,Extra extra){
 		#if GUI_FEATURE_GLFW_WITH_IMGUI
-			float size;
-			bool drawTriangle;
 			WinPointerImpl* winptr=reinterpret_cast<WinPointerImpl*>(_WinPointer);
 			GLFWwindow* window=winptr->window;
 			
@@ -81,8 +79,8 @@ namespace arm_simu{
 			while (!glfwWindowShouldClose(window)){
 				int width,height;
 				glfwGetWindowSize(window,&width,&height);
-				bool some;
-				glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+				//glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+				glClearColor(0,0,0,1);
 				// Clean the back buffer and assign the new color to it
 				glClear(GL_COLOR_BUFFER_BIT);
 
@@ -96,10 +94,8 @@ namespace arm_simu{
 				ImGui::SetNextWindowPos(pos);
 				ImGui::SetNextWindowBgAlpha(0);
 				ImGui::Begin("ArmSimulator",NULL,ImGuiWindowFlags_NoDecoration);
-				ImGui::Text("Amino Acid is out of phase");
-				ImGui::Checkbox("Agree T&C apply",&some);
-				callback(_WinPointer);
 				
+				callback(_WinPointer,extra);
 				
 				ImGui::End();
 				// Renders the ImGUI elements
@@ -118,6 +114,14 @@ namespace arm_simu{
 	void WindowManager::Finalize(){
 		#if GUI_FEATURE_GLFW_WITH_IMGUI
 			glfwTerminate();
+		#endif
+	}
+	
+	float WindowManager::DeltaTime(){
+		#if GUI_FEATURE_GLFW_WITH_IMGUI
+			return ImGui::GetIO().DeltaTime;
+		#else
+			return 0.0f;
 		#endif
 	}
 }
