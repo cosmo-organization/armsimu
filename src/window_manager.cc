@@ -94,14 +94,12 @@ namespace arm_simu{
 				ImGui::SetNextWindowPos(pos);
 				ImGui::SetNextWindowBgAlpha(0);
 				ImGui::Begin("ArmSimulator",NULL,ImGuiWindowFlags_NoDecoration);
-				
+				//entry point to window
 				callback(_WinPointer,extra);
-				
 				ImGui::End();
 				// Renders the ImGUI elements
 				ImGui::Render();
 				ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
 				// Swap the back buffer with the front buffer
 				glfwSwapBuffers(window);
 				// Take care of all GLFW events

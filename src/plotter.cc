@@ -1,5 +1,6 @@
 #include <plotter.hpp>
-
+#include <implot/implot.h>
+#include <imgui.h>
 
 namespace arm_simu{
 		struct PlotArg{
@@ -7,6 +8,7 @@ namespace arm_simu{
 			arma::uword size_x;
 			double* y;
 			arma::uword size_y;
+			const char* title="Title";
 		};
 		
 		void Plot::PlotterCallback(arm_simu::WinPointer* ptr,arm_simu::Extra extra){
@@ -17,7 +19,7 @@ namespace arm_simu{
 			ImPlot::EndPlot();
 		}
 		
-		void Plot::ScatterPlot(arma::vec x,arma::vec y,const char* title){
+		void Plot::LinePlot(arma::vec x,arma::vec y,const char* title){
 			arm_simu::WinPointer* plotWindow=arm_simu::WindowManager::CreateWindow(title,0,0,800,600);
 			ImPlotContext* context=ImPlot::CreateContext();
 			ImPlot::SetCurrentContext(context);
