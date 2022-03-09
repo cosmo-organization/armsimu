@@ -8,11 +8,11 @@
 
 void model(arma::rowvec y,double t,arma::rowvec& dydt){
 	dydt[0]=2*t*t;
-	dydt[1]=2*t*t;
+	dydt[1]=2*t*t*t;
 }
 
 void model2(double y,double t,double& dydt){
-	double k=0.3;
+	double k=0.0003;
 	dydt=-k*y;
 }
 
@@ -31,18 +31,18 @@ arma::vec arange(double start,double end,double step){
 
 
 void input(double t,arma::vec* result){
-	(*result)[0]=0.001;
+	(*result)[0]=5;
 }
 int main(const int argc,const char** argv){
 	
 	{
-		arma::vec t_frame=arange(0,1+0.01,0.01);
+		arma::vec t_frame=arange(0,100+0.01,0.01);
 		arma::rowvec y0(2);
 		double dy0=0;
 		y0[0]=5;
 		y0[1]=0;
-		constexpr double M=1;
-		constexpr double K=0.1;
+		constexpr double M=5;
+		constexpr double K=.36;
 		constexpr double Damp=0;
 		double KbyM=K/M;
 		double oneByM=1/M;
@@ -62,10 +62,16 @@ int main(const int argc,const char** argv){
 		arma::mat D(0,0);
 		arm_simu::System _system(A,B,C,D,y0,(arm_simu::input_handle)input,1);
 		auto result=_system.compute_state(t_frame);
-		result.print();
+		//result.print();
 		//t_frame.print("TimeFrame");
 	}
-	
+	//Radioactive Decay model
+	{
+		double dt=0.01;
+		arma::vec t_frame=arange(0,100+dt,dt);
+		auto result=arm_simu::EulerIntegrate(model2,1000,t_frame);
+		result.first.print();
+	}
 	
 	
 	return 0;
